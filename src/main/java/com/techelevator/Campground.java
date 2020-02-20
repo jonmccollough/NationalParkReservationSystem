@@ -3,27 +3,27 @@ package com.techelevator;
 import java.math.BigDecimal;
 
 public class Campground {
-	private Long mapground_id;
-	private int park_id;
+	private Long campgroundId;
+	private int parkId;
 	private String name;
-	private String open_from_mm;
-	private String open_to_mm;
-	private BigDecimal daily_fee;
+	private String openFromMm;
+	private String openToMm;
+	private BigDecimal dailyFee;
 	
-	public Long getMapground_id() {
-		return mapground_id;
+	public Long getCampgroundId() {
+		return campgroundId;
 	}
 	
-	public void setMapground_id(Long mapground_id) {
-		this.mapground_id = mapground_id;
+	public void setCampgroundId(Long campgroundId) {
+		this.campgroundId = campgroundId;
 	}
 	
-	public int getPark_id() {
-		return park_id;
+	public int getParkId() {
+		return parkId;
 	}
 	
-	public void setPark_id(int park_id) {
-		this.park_id = park_id;
+	public void setParkId(int parkId) {
+		this.parkId = parkId;
 	}
 	
 	public String getName() {
@@ -34,28 +34,28 @@ public class Campground {
 		this.name = name;
 	}
 	
-	public String getOpen_from_mm() {
-		return open_from_mm;
+	public String getOpenFromMm() {
+		return openFromMm;
 	}
 	
-	public void setOpen_from_mm(String open_from_mm) {
-		this.open_from_mm = open_from_mm;
+	public void setOpenFromMm(String openFromMm) {
+		this.openFromMm = openFromMm;
 	}
 	
-	public String getOpen_to_mm() {
-		return open_to_mm;
+	public String getOpenToMm() {
+		return openToMm;
 	}
 	
-	public void setOpen_to_mm(String open_to_mm) {
-		this.open_to_mm = open_to_mm;
+	public void setOpenToMm(String openToMm) {
+		this.openToMm = openToMm;
 	}
 	
-	public BigDecimal getDaily_fee() {
-		return daily_fee;
+	public BigDecimal getDailyFee() {
+		return dailyFee;
 	}
 	
-	public void setDaily_fee(BigDecimal daily_fee) {
-		this.daily_fee = daily_fee;
+	public void setDailyFee(BigDecimal dailyFee) {
+		this.dailyFee = dailyFee;
 	}
 
 }
