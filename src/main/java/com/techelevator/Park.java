@@ -3,20 +3,20 @@ package com.techelevator;
 import java.util.Date;
 
 public class Park {
-	private Long park_id;
+	private Long parkId;
 	private String name;
 	private String location;
-	private Date establish_date;
+	private Date establishDate;
 	private int area;
 	private int visitors;
 	private String description;
 	
-	public Long getPark_id() {
-		return park_id;
+	public Long getParkId() {
+		return parkId;
 	}
 	
-	public void setPark_id(Long park_id) {
-		this.park_id = park_id;
+	public void setParkId(Long parkId) {
+		this.parkId = parkId;
 	}
 	
 	public String getName() {
@@ -35,12 +35,12 @@ public class Park {
 		this.location = location;
 	}
 	
-	public Date getEstablish_date() {
-		return establish_date;
+	public Date getEstablishDate() {
+		return establishDate;
 	}
 	
-	public void setEstablish_date(Date establish_date) {
-		this.establish_date = establish_date;
+	public void setEstablishDate(Date establishDate) {
+		this.establishDate = establishDate;
 	}
 	
 	public int getArea() {
