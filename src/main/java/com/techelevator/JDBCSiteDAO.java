@@ -24,6 +24,8 @@ public static List<Site> availableSites = new ArrayList<>();
 
 	@Override
 	public List<Site> viewAvailSitesByDate(int campground, LocalDate checkInDate, LocalDate checkOutDate) {
+
+				
 		String sqlViewAvailableSites = "SELECT site_id, site_number, daily_fee FROM campground " + 
 										"JOIN site USING (campground_id) " + 
 										"LEFT JOIN reservation USING (site_id) " + 

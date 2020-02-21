@@ -62,11 +62,11 @@ private JdbcTemplate jdbcTemplate;
 	
 	private Reservations mapRowToRes(SqlRowSet results){
 		Reservations newRes = new Reservations();
-		newRes.setSiteId(results.getLong("reservation_id"));
+		newRes.setReservationId(results.getLong("reservation_id"));
 		newRes.setName(results.getString("name"));
 		newRes.setFromDate(results.getDate("from_date"));
 		newRes.setToDate(results.getDate("to_date"));
-		newRes.setToDate(results.getDate("create_date"));
+		newRes.setCreateDate(results.getDate("create_date"));
 		newRes.setSiteId(results.getLong("site_id"));
 		return newRes;
 	}
