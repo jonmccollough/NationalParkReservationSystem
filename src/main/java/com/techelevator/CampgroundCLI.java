@@ -29,24 +29,19 @@ public class CampgroundCLI {
 		campgroundDAO = new JDBCCampgroundDAO(dataSource);
 		siteDAO = new JDBCSiteDAO(dataSource);
 		reservationDAO = new JDBCReservationDAO(dataSource);
-
 	}
 
 	public void run() {
 
 		Scanner userInput = new Scanner(System.in);
-
 		LocalDate arrivalScannerLD = null;
 		LocalDate departureScannerLD = null;
 
-		boolean mainMenuControl = true;
 		while (true) {
-
 			System.out.println("National Parks Welcome Page");
 			System.out.println("Please selection your option");
 			System.out.println("1. Display National Parks");
 			System.out.println("0. Exit");
-
 			String welcomeScanner = userInput.nextLine();
 			int welcomeScannerInt = Integer.valueOf(welcomeScanner);
 
@@ -68,7 +63,6 @@ public class CampgroundCLI {
 					}
 
 					while (true) {
-
 						parkDAO.getParkDetails((long) secondScannerInt);
 						System.out.println("1. View Campgrounds");
 						System.out.println("2. Search a Reservation");
@@ -82,12 +76,11 @@ public class CampgroundCLI {
 						}
 
 						while (true) {
-
 							if (thirdScannerInt == 1) {
 								campgroundDAO.getAllCampgroundsInfo(secondScannerInt);
 								System.out.println(
 										"Enter number of campground would you like to reserve(enter 0 to cancel): ");
-								
+
 								String fourthScanner = userInput.nextLine();
 								int fourthScannerInt = Integer.valueOf(fourthScanner);
 
@@ -131,27 +124,25 @@ public class CampgroundCLI {
 
 										System.out.println("Enter a name to reserve the site under: ");
 										String nameScanner = userInput.nextLine();
-
 										reservationDAO.makeReservation(Long.valueOf(fifthScanner), nameScanner,
 												arrivalScannerLD, departureScannerLD);
 
 										System.out.println();
 									}
 								}
-
 							}
 							if (thirdScannerInt == 2) {
 								System.out.println("Enter in reservation ID: ");
 								String resScanner = userInput.nextLine();
 								reservationDAO.viewReservationById(Long.valueOf(resScanner));
+								break;
 							}
-
 						}
 					}
-
 				}
 			}
 			if (welcomeScannerInt == 0) {
+				userInput.close();
 				System.exit(0);
 			}
 		}

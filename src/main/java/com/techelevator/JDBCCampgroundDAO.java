@@ -20,7 +20,6 @@ public class JDBCCampgroundDAO implements CampgroundDAO {
 
 	private Campground mapRowToCampground(SqlRowSet results) {
 		Campground theCampground;
-		
 		theCampground = new Campground();
 		theCampground.setCampgroundId(results.getLong("campground_id"));
 		theCampground.setParkId(results.getInt("park_id"));
@@ -28,7 +27,6 @@ public class JDBCCampgroundDAO implements CampgroundDAO {
 		theCampground.setOpenFromMm(results.getString("open_from_mm"));
 		theCampground.setOpenToMm(results.getString("open_to_mm"));
 		theCampground.setDailyFee(results.getBigDecimal("daily_fee"));
-		
 		return theCampground;
 	}
 	

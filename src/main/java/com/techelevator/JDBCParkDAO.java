@@ -1,7 +1,6 @@
 package com.techelevator;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -21,7 +20,6 @@ public class JDBCParkDAO implements ParkDAO {
 
 	private Park mapRowToPark(SqlRowSet results) {
 		Park thePark;
-
 		thePark = new Park();
 		thePark.setArea(results.getInt("area"));
 		thePark.setParkId(results.getLong("park_id"));
@@ -32,7 +30,6 @@ public class JDBCParkDAO implements ParkDAO {
 		thePark.setDescription(results.getString("description"));
 
 		return thePark;
-
 	}
 
 	@Override
@@ -51,7 +48,6 @@ public class JDBCParkDAO implements ParkDAO {
 			System.out.println(prk.getParkId() + ")   " + prk.getName());
 		}
 		System.out.println();
-
 		return park;
 	}
 
@@ -63,7 +59,6 @@ public class JDBCParkDAO implements ParkDAO {
 			availableParks.add(prk.getParkId());
 		}
 		if (availableParks.contains(parkId)) {
-
 			String sqlGetParkId = "SELECT * " + " FROM park " + "WHERE park_id = ? ";
 			SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetParkId, parkId);
 			results.next();
@@ -83,5 +78,4 @@ public class JDBCParkDAO implements ParkDAO {
 		System.out.println("ERROR: Not a Valid Park Selection!!!");
 		return thePark;
 	}
-
 }
