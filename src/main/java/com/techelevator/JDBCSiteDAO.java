@@ -16,6 +16,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 public class JDBCSiteDAO implements SiteDAO {
 	
 private JdbcTemplate jdbcTemplate;
+public static List<Site> availableSites = new ArrayList<>();
 	
 	public JDBCSiteDAO(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
@@ -23,7 +24,6 @@ private JdbcTemplate jdbcTemplate;
 
 	@Override
 	public List<Site> viewAvailSitesByDate(int campground, LocalDate checkInDate, LocalDate checkOutDate) {
-		List<Site> availableSites = new ArrayList<>();
 		String sqlViewAvailableSites = "SELECT site_id, site_number, daily_fee FROM campground " + 
 										"JOIN site USING (campground_id) " + 
 										"LEFT JOIN reservation USING (site_id) " + 
