@@ -1,5 +1,8 @@
 package com.techelevator;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -8,6 +11,8 @@ public class CampgroundCLI {
 
 	private ParkDAO parkDAO;
 	private CampgroundDAO campgroundDAO;
+	private SiteDAO siteDAO; 
+	
 	
 	public static void main(String[] args) {
 		BasicDataSource dataSource = new BasicDataSource();
@@ -25,6 +30,8 @@ public class CampgroundCLI {
 		parkDAO.getParkDetails(Long.valueOf(1));
 		campgroundDAO = new JDBCCampgroundDAO(dataSource);
 		campgroundDAO.getAllCampgroundsInfo(1);
+		siteDAO = new JDBCSiteDAO(dataSource);
+		siteDAO.viewAvailSitesByDate(1, LocalDate.of(2020,02,20), LocalDate.of(2020,3,23));
 	}
 
 	public void run() {
