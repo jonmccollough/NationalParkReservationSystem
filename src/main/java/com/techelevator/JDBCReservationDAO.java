@@ -46,9 +46,29 @@ private JdbcTemplate jdbcTemplate;
 	}
 
 	@Override
-	public void viewReservationById(Long reservationId) {
-		// TODO Auto-generated method stub
+	public Reservations viewReservationById(Long reservationId) {
+		Reservations theRes = null;
+		SqlRowSet reservationByIdResult = jdbcTemplate.queryForRowSet("SELECT * FROM reservation WHERE reservation_id = ?", reservationId);
+		if (reservationByIdResult.next()) {
+			theRes = mapRowToRes(reservationByIdResult);
+			System.out.println(theRes.getReservationId() + " " + theRes.getName() + " " + theRes.getSiteId() + " " + theRes.getFromDate() + " " + theRes.getToDate() + " " + theRes.getCreateDate());
+			return theRes;
+		}
+		System.out.println("No reservation found for that ID number");
+			return theRes;
+			
 
+	}
+	
+	private Reservations mapRowToRes(SqlRowSet results){
+		Reservations newRes = new Reservations();
+		newRes.setSiteId(results.getLong("reservation_id"));
+		newRes.setName(results.getString("name"));
+		newRes.setFromDate(results.getDate("from_date"));
+		newRes.setToDate(results.getDate("to_date"));
+		newRes.setToDate(results.getDate("create_date"));
+		newRes.setSiteId(results.getLong("site_id"));
+		return newRes;
 	}
 	
 	private long getNextResId() {
