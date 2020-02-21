@@ -48,9 +48,10 @@ public static List<Site> availableSites = new ArrayList<>();
 	    long diffDays = ChronoUnit.DAYS.between(checkInDate, checkOutDate);
 	    BigDecimal diffDaysBigD = new BigDecimal(diffDays);
 		
-		
+		System.out.println("Available Sites \tTotal Cost of Stay");
+		System.out.println("===============================================");
 		for(Site site : availableSites) {
-			System.out.println(site.getSiteNumber() + " " + (site.getDailyFee().multiply(diffDaysBigD)));
+			System.out.println("\t   " + site.getSiteNumber() + " \t\t" + (site.getDailyFee().multiply(diffDaysBigD)));
 		}
 				
 		
