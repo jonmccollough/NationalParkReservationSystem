@@ -75,9 +75,6 @@ public class CampgroundCLI {
 
 				String thirdScanner = userInput.nextLine();
 				int thirdScannerInt = Integer.valueOf(thirdScanner);
-				if (thirdScannerInt == 0) {
-					secondControl = false;
-				}
 				
 				boolean thirdControl = true;
 				if (thirdScannerInt == 0) {
@@ -86,9 +83,49 @@ public class CampgroundCLI {
 
 				if (thirdScannerInt == 1) {
 					campgroundDAO.getAllCampgroundsInfo(secondScannerInt);
-					System.out.println("1. Search for Available Reservation");
-					System.out.println("0. Return to Previous Screen");
+					System.out.println("Enter number of campground would you like to reserve(enter 0 to cancel): ");
 
+					String fourthScanner = userInput.nextLine();
+					int fourthScannerInt = Integer.valueOf(fourthScanner);
+					
+					System.out.println("What is the arrival date? YYYY-MM-DD: ");
+					String arrivalScanner = userInput.nextLine();
+					LocalDate arrivalScannerLD = LocalDate.parse(arrivalScanner);
+					
+					System.out.println("What is the departure date? YYYY-MM-DD: ");
+					String departureScanner = userInput.nextLine();
+					LocalDate departureScannerLD = LocalDate.parse(departureScanner);
+					
+					boolean fourthControl = true;
+					if (fourthScannerInt == 0) {
+						fourthControl = false;
+					}
+					
+					if (fourthScannerInt != 1 && fourthScannerInt != 2 && fourthScannerInt != 3) {
+						System.out.println("Not a valid campground selection");
+					}
+					
+					if (fourthScannerInt == 1 || fourthScannerInt == 2 ||fourthScannerInt == 3 ) {
+						siteDAO.viewAvailSitesByDate(fourthScannerInt, arrivalScannerLD, departureScannerLD);
+						System.out.println("Enter number of site to be reserved: ");
+						System.out.println("0. to return to previous screen");
+						String fifthScanner = userInput.nextLine();
+						int fifthScannerInt = Integer.valueOf(fifthScanner);
+						
+						boolean fifthControl = true;
+						if (fifthScannerInt == 0) {
+							fifthControl = false;
+						}
+						
+						System.out.println("Enter a name to reserve the site under: ");
+						String nameScanner = userInput.nextLine();
+						
+						reservationDAO.makeReservation(Long.valueOf(fifthScanner), nameScanner, arrivalScannerLD, departureScannerLD); 
+
+						System.out.println();
+					}
+					
+				
 				}
 
 			}
