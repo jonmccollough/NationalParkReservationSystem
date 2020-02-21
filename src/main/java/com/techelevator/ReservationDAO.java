@@ -6,6 +6,6 @@ import java.util.Date;
 public interface ReservationDAO {
 	
 	public Long makeReservation(Long siteNumber, String name, LocalDate fromDate, LocalDate toDate);
-	public void viewReservationById(Long reservationId);
+	public Reservations viewReservationById(Long reservationId);
 
 }
