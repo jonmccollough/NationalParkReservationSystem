@@ -44,11 +44,14 @@ public class JDBCCampgroundDAO implements CampgroundDAO {
 			Campground campground = mapRowToCampground(results);
 			campgroundsList.add(campground);
 		}
+		System.out.println("Campground ID \t Campground Name \t Season Open \t Season Close \t Cost per Site ");
+		System.out.println("===========================================================================================");
 		for( Campground campground : campgroundsList) {
-			System.out.println(campground.getCampgroundId() + " " + campground.getName() + " " + convertMonths(campground.getOpenFromMm()) +
-								" " + convertMonths(campground.getOpenToMm()) +
-								" " + campground.getDailyFee());
+			System.out.println("\t" + campground.getCampgroundId() + "\t\t" + campground.getName() + "\t" + convertMonths(campground.getOpenFromMm()) +
+								"\t" + convertMonths(campground.getOpenToMm()) +
+								"\t" + campground.getDailyFee());
 		}
+		System.out.println();
 		
 		return campgroundsList;
 	}

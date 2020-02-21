@@ -45,9 +45,13 @@ public class JDBCParkDAO implements ParkDAO {
 			Park thePark = mapRowToPark(results);
 			park.add(thePark);
 		}
+		System.out.println("Id   Park Name");
+		System.out.println("==============");
 		for (Park prk : park ) {
-			System.out.println( prk.getParkId() + " " + prk.getName() );
+			
+			System.out.println( prk.getParkId() + ")   " + prk.getName() );
 		}
+		System.out.println();
 		
 		return park;
 	}
@@ -60,12 +64,16 @@ public class JDBCParkDAO implements ParkDAO {
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetParkId, parkId);
 		results.next();
 		Park thePark = mapRowToPark(results);
-		System.out.println( thePark.getName() );
-		System.out.println( thePark.getLocation());
-		System.out.println( thePark.getEstablishDate());
-		System.out.println( thePark.getArea());
-		System.out.println( thePark.getVisitors());
+		System.out.println( thePark.getName() + " National Park" );
+		System.out.println("=====================================");
+		System.out.println( "Location:\t" + thePark.getLocation());
+		System.out.println( "Established:\t" + thePark.getEstablishDate());
+		System.out.println( "Area:\t\t" + thePark.getArea() + "sq km");
+		System.out.println( "Annual Vstrs:\t" + thePark.getVisitors());
+		System.out.println();
 		System.out.println( thePark.getDescription());
+		System.out.println();
+		
 		
 		return thePark;
 	}
