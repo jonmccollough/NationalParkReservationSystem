@@ -4,9 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import javax.sql.DataSource;
 
@@ -24,6 +22,9 @@ public static List<Site> availableSites = new ArrayList<>();
 
 	@Override
 	public List<Site> viewAvailSitesByDate(int campground, LocalDate checkInDate, LocalDate checkOutDate) {
+		
+		//If no sites are available indicate it to user and ask for alt dates
+				
 		String sqlViewAvailableSites = "SELECT site_id, site_number, daily_fee FROM campground " + 
 										"JOIN site USING (campground_id) " + 
 										"LEFT JOIN reservation USING (site_id) " + 
@@ -54,7 +55,6 @@ public static List<Site> availableSites = new ArrayList<>();
 			System.out.println("\t   " + site.getSiteNumber() + " \t\t" + (site.getDailyFee().multiply(diffDaysBigD)));
 		}
 				
-		
 		return availableSites;
 	}
 	

@@ -1,12 +1,7 @@
 package com.techelevator;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -51,22 +46,21 @@ private JdbcTemplate jdbcTemplate;
 		SqlRowSet reservationByIdResult = jdbcTemplate.queryForRowSet("SELECT * FROM reservation WHERE reservation_id = ?", reservationId);
 		if (reservationByIdResult.next()) {
 			theRes = mapRowToRes(reservationByIdResult);
-			System.out.println(theRes.getReservationId() + " " + theRes.getName() + " " + theRes.getSiteId() + " " + theRes.getFromDate() + " " + theRes.getToDate() + " " + theRes.getCreateDate());
+			System.out.println("Reservation ID \t Name \t \t Site ID \t Start Date \t End Date \t Created Date");
+			System.out.println(theRes.getReservationId() + "\t \t " + theRes.getName() + "\t " + theRes.getSiteId() + "\t " + theRes.getFromDate() + "\t " + theRes.getToDate() + "\t " + theRes.getCreateDate());
 			return theRes;
 		}
 		System.out.println("No reservation found for that ID number");
 			return theRes;
-			
-
-	}
+		}
 	
 	private Reservations mapRowToRes(SqlRowSet results){
 		Reservations newRes = new Reservations();
-		newRes.setSiteId(results.getLong("reservation_id"));
+		newRes.setReservationId(results.getLong("reservation_id"));
 		newRes.setName(results.getString("name"));
 		newRes.setFromDate(results.getDate("from_date"));
 		newRes.setToDate(results.getDate("to_date"));
-		newRes.setToDate(results.getDate("create_date"));
+		newRes.setCreateDate(results.getDate("create_date"));
 		newRes.setSiteId(results.getLong("site_id"));
 		return newRes;
 	}

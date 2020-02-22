@@ -1,6 +1,5 @@
 package com.techelevator;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +11,8 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 public class JDBCCampgroundDAO implements CampgroundDAO {
 	
 	private JdbcTemplate jdbcTemplate;
+	public static List<Campground> campgroundsList = new ArrayList<>();
+
 
 	public JDBCCampgroundDAO(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
@@ -19,7 +20,6 @@ public class JDBCCampgroundDAO implements CampgroundDAO {
 
 	private Campground mapRowToCampground(SqlRowSet results) {
 		Campground theCampground;
-		
 		theCampground = new Campground();
 		theCampground.setCampgroundId(results.getLong("campground_id"));
 		theCampground.setParkId(results.getInt("park_id"));
@@ -27,19 +27,18 @@ public class JDBCCampgroundDAO implements CampgroundDAO {
 		theCampground.setOpenFromMm(results.getString("open_from_mm"));
 		theCampground.setOpenToMm(results.getString("open_to_mm"));
 		theCampground.setDailyFee(results.getBigDecimal("daily_fee"));
-		
 		return theCampground;
 	}
 	
 	@Override
 	public List<Campground> getAllCampgroundsInfo(int parkId) {
-		List<Campground> campgroundsList = new ArrayList<>();
+		campgroundsList = new ArrayList<>();
 				String sqlGetAllCampgroundsInfo = "SELECT * " +
 									  	   		  "FROM campground "+
 									  	          "JOIN park " +
 									  	          "USING (park_id)" +
-									  	          "WHERE park_id = 1 ";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetAllCampgroundsInfo);
+									  	          "WHERE park_id = ? ";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetAllCampgroundsInfo, parkId);
 		while(results.next()) {
 			Campground campground = mapRowToCampground(results);
 			campgroundsList.add(campground);
