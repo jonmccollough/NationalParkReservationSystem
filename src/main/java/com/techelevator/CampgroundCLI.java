@@ -75,6 +75,10 @@ public class CampgroundCLI {
 						String thirdScanner = userInput.nextLine();
 						int thirdScannerInt = Integer.valueOf(thirdScanner);
 						
+						if (thirdScannerInt != 0 && thirdScannerInt != 1 && thirdScannerInt != 2) {
+							System.out.println("Invalid Input");
+							break;
+						}
 						
 						if (thirdScannerInt == 0) {
 							break;
