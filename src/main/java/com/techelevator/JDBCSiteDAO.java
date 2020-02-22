@@ -14,7 +14,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 public class JDBCSiteDAO implements SiteDAO {
 	
 private JdbcTemplate jdbcTemplate;
-public static List<Site> availableSites = new ArrayList<>();
+public static List<Site> availableSites;
 	
 	public JDBCSiteDAO(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
@@ -23,7 +23,6 @@ public static List<Site> availableSites = new ArrayList<>();
 	@Override
 	public List<Site> viewAvailSitesByDate(int campground, LocalDate checkInDate, LocalDate checkOutDate) {
 		
-		//If no sites are available indicate it to user and ask for alt dates
 				
 		String sqlViewAvailableSites = "SELECT site_id, site_number, daily_fee FROM campground " + 
 										"JOIN site USING (campground_id) " + 
@@ -40,10 +39,15 @@ public static List<Site> availableSites = new ArrayList<>();
 										"LIMIT 5 ";
 		
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlViewAvailableSites, campground, campground, checkInDate, checkOutDate, checkInDate, checkOutDate);
-		
+		availableSites = new ArrayList<>();
 		while(results.next()) {
 			Site theSite = mapRowToSite(results);
 			availableSites.add(theSite);
+		}
+		
+		if (availableSites.size() == 0) {
+			System.out.println("No sites available, too bad for you.");
+			
 		}
 		
 	    long diffDays = ChronoUnit.DAYS.between(checkInDate, checkOutDate);
