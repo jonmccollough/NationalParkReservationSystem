@@ -54,6 +54,24 @@ public class JDBCCampgroundDAO implements CampgroundDAO {
 		
 		return campgroundsList;
 	}
+	@Override
+	public int verifyCampground(Long campgroundId) {
+		int campSwitch = 0;
+		List<Long> availableCampIds = new ArrayList<>();
+		
+		for(Campground camp : campgroundsList ) {
+			availableCampIds.add(camp.getCampgroundId());
+		}
+		
+		if (!availableCampIds.contains(campgroundId)) {
+			System.out.println("Invalid Campground Selection!");
+			campSwitch = 1;
+			return campSwitch;
+			
+		}
+		return campSwitch;
+		
+	}
 
 	private String convertMonths(String numMonth) {
 		if(numMonth.equals("01")){

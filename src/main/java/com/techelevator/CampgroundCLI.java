@@ -63,14 +63,19 @@ public class CampgroundCLI {
 					}
 
 					while (true) {
-						parkDAO.getParkDetails((long) secondScannerInt);
+						Park thePark = parkDAO.getParkDetails((long) secondScannerInt);
+						if (thePark != null) {
 						System.out.println("1. View Campgrounds");
 						System.out.println("2. Search a Reservation");
 						System.out.println("0. Return to Previous Screen");
-
+						} else {
+							break;
+						}
+							
 						String thirdScanner = userInput.nextLine();
 						int thirdScannerInt = Integer.valueOf(thirdScanner);
-
+						
+						
 						if (thirdScannerInt == 0) {
 							break;
 						}
@@ -83,15 +88,17 @@ public class CampgroundCLI {
 
 								String fourthScanner = userInput.nextLine();
 								int fourthScannerInt = Integer.valueOf(fourthScanner);
-
+								Long fourthScannerLng = Long.valueOf(fourthScanner);
 								if (fourthScannerInt == 0) {
 									break;
 								}
 
-								if (fourthScannerInt != 1 && fourthScannerInt != 2 && fourthScannerInt != 3) {
-									System.out.println("ERROR: Not a valid campground selection!!!");
+								int campSwitch = campgroundDAO.verifyCampground(fourthScannerLng);
+								
+								if (campSwitch == 1) {
 									break;
 								}
+								
 
 								System.out.println("What is the arrival date? YYYY-MM-DD: ");
 								try {
@@ -110,7 +117,7 @@ public class CampgroundCLI {
 
 								while (true) {
 
-									if (fourthScannerInt == 1 || fourthScannerInt == 2 || fourthScannerInt == 3) {
+								
 										siteDAO.viewAvailSitesByDate(fourthScannerInt, arrivalScannerLD,
 												departureScannerLD);
 										System.out.println("Enter number of site to be reserved: ");
@@ -128,7 +135,7 @@ public class CampgroundCLI {
 												arrivalScannerLD, departureScannerLD);
 
 										System.out.println();
-									}
+									
 								}
 							}
 							if (thirdScannerInt == 2) {

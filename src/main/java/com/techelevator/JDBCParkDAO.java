@@ -12,7 +12,7 @@ public class JDBCParkDAO implements ParkDAO {
 
 	private JdbcTemplate jdbcTemplate;
 
-	private List<Park> park = new ArrayList<>();
+	private List<Park> park;
 
 	public JDBCParkDAO(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
@@ -34,7 +34,7 @@ public class JDBCParkDAO implements ParkDAO {
 
 	@Override
 	public List<Park> getAllParks() {
-
+		park = new ArrayList<>();
 		String sqlGetAllParks = "SELECT * " + "FROM park " + "ORDER BY name";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetAllParks);
 		while (results.next()) {
@@ -74,8 +74,9 @@ public class JDBCParkDAO implements ParkDAO {
 			System.out.println();
 
 			return thePark;
-		}
+		} else {
 		System.out.println("ERROR: Not a Valid Park Selection!!!");
 		return thePark;
+	}
 	}
 }
