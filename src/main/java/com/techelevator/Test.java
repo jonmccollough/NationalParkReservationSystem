@@ -1,6 +1,5 @@
 package com.techelevator;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.sql.DataSource;
