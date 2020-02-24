@@ -1,6 +1,7 @@
 package com.techelevator;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 import javax.sql.DataSource;
@@ -121,9 +122,12 @@ public class CampgroundCLI {
 
 								while (true) {
 
-								
-										siteDAO.viewAvailSitesByDate(fourthScannerInt, arrivalScannerLD,
+										
+										List<Site> availSites = siteDAO.viewAvailSitesByDate(fourthScannerInt, arrivalScannerLD,
 												departureScannerLD);
+										if (availSites.size() > 0) {
+											
+										
 										System.out.println("Enter number of site to be reserved: ");
 										System.out.println("Enter 0 to return to Campground Selection");
 										String fifthScanner = userInput.nextLine();
@@ -139,6 +143,9 @@ public class CampgroundCLI {
 												arrivalScannerLD, departureScannerLD);
 
 										System.out.println();
+										} else {
+											break;
+										}
 									
 								}
 							}

@@ -22,6 +22,17 @@ public static List<Site> availableSites;
 
 	@Override
 	public List<Site> viewAvailSitesByDate(int campground, LocalDate checkInDate, LocalDate checkOutDate) {
+		availableSites = new ArrayList<>();
+		if (checkInDate.isBefore(LocalDate.now())) {
+			System.out.println("Invalid Dates entered, cannot book past dates without a Delorean.");
+			return availableSites;
+			
+		}
+		
+		if (checkOutDate.isBefore(checkInDate)) {
+			System.out.println("Invalid Dates entered, checkout date cannot be before check in");
+			return availableSites;
+		}
 		
 				
 		String sqlViewAvailableSites = "SELECT site_id, site_number, daily_fee FROM campground " + 
@@ -47,7 +58,7 @@ public static List<Site> availableSites;
 		
 		if (availableSites.size() == 0) {
 			System.out.println("No sites available, too bad for you.");
-			
+			return availableSites;
 		}
 		
 	    long diffDays = ChronoUnit.DAYS.between(checkInDate, checkOutDate);
