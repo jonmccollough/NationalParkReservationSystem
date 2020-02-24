@@ -8,6 +8,5 @@ public interface ParkDAO {
 		
 	public Park getParkDetails(Long parkId);
 
-	void save(Park newPark);
 		
 }

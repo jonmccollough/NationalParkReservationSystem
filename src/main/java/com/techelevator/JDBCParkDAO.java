@@ -79,26 +79,4 @@ public class JDBCParkDAO implements ParkDAO {
 		return thePark;
 	}
 	}
-
-	@Override
-	public void save(Park newPark) {
-		String sqlSavePark = "INSERT INTO park (park_id, name, location, establish_date, area, visitors, description) VALUES (?, ?, ?, ?, ?, ?, ?)";
-		newPark.setParkId(getNextParkId());
-		jdbcTemplate.update(sqlSavePark, newPark.getParkId(),
-				newPark.getName(),
-				newPark.getLocation(),
-				newPark.getEstablishDate(),
-				newPark.getArea(),
-				newPark.getVisitors(),
-				newPark.getDescription());
-	}
-	
-	private long getNextParkId() {
-		SqlRowSet nextIdResult = jdbcTemplate.queryForRowSet("SELECT nextval('park_park_id_seq')");
-		if(nextIdResult.next()) {
-			return nextIdResult.getLong(1);
-		} else {
-			throw new RuntimeException("Something went wrong while getting an id for the new park");
-		}
-	}
 }
