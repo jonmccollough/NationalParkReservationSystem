@@ -17,13 +17,15 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 
 public class TestJDBCParkDAO {
 
 	private static SingleConnectionDataSource dataSource;
-	private static final long TEST_PARK = 20;
+//	private static final long TEST_PARK = 20;
 	private ParkDAO dao;
+	private Long testParkIdLong;
 
 	@BeforeClass
 	public static void setupDataSource() {
@@ -36,12 +38,15 @@ public class TestJDBCParkDAO {
 	
 	@Before
 	public void setup() {
-		String sqlInsertPark = "INSERT INTO park (park_id, name, location, establish_date, area, visitors, description) VALUES (?, 'Testney World', 'Tesstessee', '2001-01-01', 1000, 2, 'Test Description')";
-		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-		jdbcTemplate.update(sqlInsertPark, TEST_PARK);
-		
 		dao = new JDBCParkDAO(dataSource);
-	
+		String sqlInsertPark = "INSERT INTO park (park_id, name, location, establish_date, area, visitors, description) VALUES (DEFAULT, 'Testney World', 'Tesstessee', '2001-01-01', 1000, 2, 'Test Description')";
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		jdbcTemplate.update(sqlInsertPark);
+		String sqlGetParkId = "SELECT park_id FROM park WHERE name = 'Testney World' ";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetParkId);
+		results.next();
+		testParkIdLong = results.getLong("park_id");
+		int testParkIdInt = testParkIdLong.intValue();
 	}
 
 	@AfterClass
@@ -53,34 +58,50 @@ public class TestJDBCParkDAO {
 	public void rollback() throws SQLException {
 		dataSource.getConnection().rollback();
 	}
-
-	protected DataSource getDataSource() {
-		return dataSource;
-	}
 	
 	@Test
 	public void getAllParks(){
-	//	Park newPark = getPark();
-	//	dao.save(newPark);
+
 		List<Park> actualPark = dao.getAllParks();
 		Assert.assertNotNull("Did not find parks", actualPark);
-		assertEquals(4, actualPark.size());
+	//	assertEquals(4, actualPark.size());
 	}
 	
 	@Test
 	public void getParkDetails(){
-	//	final Long parkId = (long) 1;
-	//	Park newPark = getPark();
-	//	dao.save(newPark);
+		Park newPark = makePark();
+		dao.getAllParks();
+		Park actualPark = dao.getParkDetails(testParkIdLong);
 		
-	//	Park actualPark = dao.getParkDetails((long) 1);
-	//	Assert.assertNotNull("Park details were null, again", actualPark);
-		//assertParksAreEqual(newPark, actualPark);
+		Assert.assertNotNull("Park details were null, again", actualPark);
+		assertParksAreEqual(newPark, actualPark);
+	}
+	
+	@Test
+	public void getNextParkIdValidTest() {
+		
+		dao.getAllParks();
+		String sqlInsertParkIdTest = "INSERT INTO park (park_id, name, location, establish_date, area, visitors, description) VALUES (DEFAULT, 'TestPark', 'TestLoc', '2001-01-01', 12000, 1000, 'Test Description2')";
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		jdbcTemplate.update(sqlInsertParkIdTest);
+		String sqlGetParkId = "SELECT park_id FROM park WHERE name = 'Testney World' ";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetParkId);
+		results.next();
+		testParkIdLong = results.getLong("park_id");
+		Park actualPark = dao.getParkDetails(testParkIdLong);
+		Assert.assertNotNull(actualPark);
+	}
+	
+	@Test
+	public void getNextParkIdInvalidTest() {
+		dao.getAllParks();
+		Park actualPark = dao.getParkDetails(0L);
+		Assert.assertNull(actualPark);
 	}
 	
 	
-	private Park getPark() {
-		Long parkId = (long) 20;
+	private Park makePark() {
+		Long parkId = testParkIdLong;
 		String name = "Testney World";
 		String location = "Tesstessee";
 		Date establishDate = Date.valueOf("2001-01-01");
