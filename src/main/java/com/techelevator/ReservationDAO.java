@@ -1,7 +1,6 @@
 package com.techelevator;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public interface ReservationDAO {
 	
