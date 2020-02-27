@@ -46,8 +46,10 @@ private JdbcTemplate jdbcTemplate;
 		SqlRowSet reservationByIdResult = jdbcTemplate.queryForRowSet("SELECT * FROM reservation WHERE reservation_id = ?", reservationId);
 		if (reservationByIdResult.next()) {
 			theRes = mapRowToRes(reservationByIdResult);
-			System.out.println("Reservation ID \t Name \t \t Site ID \t Start Date \t End Date \t Created Date");
-			System.out.println(theRes.getReservationId() + "\t \t " + theRes.getName() + "\t " + theRes.getSiteId() + "\t " + theRes.getFromDate() + "\t " + theRes.getToDate() + "\t " + theRes.getCreateDate());
+			System.out.println("Reservation ID \t Name \t \t\t Site ID \t Start Date \t End Date \t Created Date");
+			System.out.println("=====================================================================================================");
+			System.out.println(theRes.getReservationId() + "\t \t " + theRes.getName() + "\t " + theRes.getSiteId() + "\t\t " + theRes.getFromDate() + "\t " + theRes.getToDate() + "\t " + theRes.getCreateDate());
+			System.out.println();
 			return theRes;
 		}
 		System.out.println("No reservation found for that ID number");
