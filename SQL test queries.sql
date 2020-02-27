@@ -26,6 +26,20 @@ OR ('2020-02-20' < from_date AND '2020-02-21' > to_date)))
 GROUP BY site_id, site_number, daily_fee
 LIMIT 5;
 
+SELECT * FROM reservation
+WHERE reservation_id = 1;
+
+INSERT INTO park VALUES (DEFAULT, 'TESTPARKNAME', 'TESTPARKLOC', '2222-01-01', 1, 1, 'TESTPARKDESC');
+INSERT INTO campground VALUES (DEFAULT, (SELECT park_id FROM park WHERE name = 'TESTPARKNAME'), 'TESTCAMPNAME', '13', '14', 10);
+INSERT INTO site VALUES (DEFAULT, (SELECT campground_id FROM campground WHERE name = 'TESTCAMPNAME'), 1, 5, false, 10, false);
+
+DELETE FROM site WHERE site_id = 623;
+DELETE FROM campground WHERE name = 'TESTCAMPNAME';
+DELETE FROM park WHERE name = 'TESTPARKNAME';
+
+SELECT campground_id FROM campground WHERE name = 'TESTCAMPNAME';
+
+
 
 
  
